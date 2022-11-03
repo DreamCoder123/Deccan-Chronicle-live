@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Technology</title>
+    <link rel="stylesheet" href="./styles/styles.css" />
+    <link rel="stylesheet" href="./styles/world.css" />
+    <link rel="stylesheet" href="./style/footer.css">
+    <link rel="stylesheet" href="./style/header.css">
+  </head>
+  <body>
+    <div id="asheader">
+    </div>
+
+<div id="navbar">
+</div> 
+    <!-- TOP PART -->
+    <div id="outerDiv">
+      <div id="leftDiv">
+        <h2>TECHNOLOGY</h2>
+      </div>
+      <div id="middleDiv"></div>
+      <div id="rightDiv">
+        <div id="topEmptyDiv"></div>
+        <div id="bottomDiv">
+          <h2>MOST POPULAR</h2>
+        </div>
+      </div>
+    </div>
+    <!-- BOTTOM PART -->
+    <!-- galary  -->
+    <div id="galary">
+      <div class="f_galary">
+        <h2>GALLERY</h2>
+      </div>
+      <div class="s_galary">
+        <h2>MORE GALLERIES</h2>
+      </div>
+    </div>
+    <!-- mobiles and tabs  -->
+    <div id="p_mobile">
+      <h2>MOBILES AND TABS</h2>
+      <div id="mobile"></div>
+    </div>
+    <!-- GADGETS  -->
+    <div id="p_gadgets">
+      <h2>GADGETS</h2>
+      <div id="u_gadgets"></div>
+      <div id="l_gadgets"></div>
+    </div>
+    <!-- in other news  -->
+    <div id="p_tech">
+      <h2>IN OTHER NEWS</h2>
+      <div id="u_tech"></div>
+      <div id="l_tech"></div>
+    </div>
+    <footer id="as_footer"></footer>
+  </body>
+  <script src="./scripts/icon.js"></script>
+  <script src="./scripts/sidepanel.js"></script>
+
+  <script type="module">
+    import { navbar } from "./comp/navbar.js";
+    import { footer } from "./comp/footer.js";
+    import { header } from "./comp/header.js";
+    let nav = (document.getElementById("navbar").innerHTML = navbar());
+    let foot = (document.getElementById("as_footer").innerHTML = footer());
+    let head = (document.getElementById("asheader").innerHTML = header());
+
+    import { fetchData } from "./components/index.js";
+import { appendData, showDataM, showDataR } from "./components/display.js";
+
+// const apikeyR=`d5517085875846b9ba2c2cbb522dc5d4`
+// const apikeyR=`a4b263da6c6c4f1ab7f29e452bc9d108`
+const apikeyR=`95d1fbec7675485aba5f17e941467b38`
+// const apikeyR = `76abf9a091394214a253dfa00f1f6e2c`;
+
+let query = "elonmusk";
+let query2 = "computer";
+let query3 = "tech";
+
+let url2 = `https://newsapi.org/v2/everything?q=${query}&apikey=${apikeyR}`;
+let url3 = `https://newsapi.org/v2/everything?q=${query3}&apikey=${apikeyR}`;
+let url4 = `https://newsapi.org/v2/everything?q=${query2}&apikey=${apikeyR}`;
+
+
+    let data = await fetchData(url2);
+let dataM = await fetchData(url3);
+let dataR = await fetchData(url4);
+
+
+
+
+
+///left part
+let display = document.getElementById("leftDiv");
+appendData(data.articles, display);
+
+////middle part
+
+let container = document.getElementById("middleDiv");
+showDataM(dataM.articles, container);
+
+////right part
+
+let containerR = document.getElementById("bottomDiv");
+showDataR(dataR.articles, containerR);
+
+//console.log(data)
+
+////BOTTOM JS//////
+
+import {
+  getFetchData,
+  append,
+  typeAppend,
+  lowAppend,
+  galary_s_append,
+  galary_f_append,
+} from "./components/fetch.js";
+
+// const apikeyR="95d1fbec7675485aba5f17e941467b38";
+// const apikeyR="25b04ade42f64810b66bdd7ebf4be413"
+// const apikeyR ="6aa74a37541a4b0c88dbe661ec2f72c4"
+
+let galary = async () => {
+  const gal_url = `https://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey=${apikeyR}`;
+
+  let data = await getFetchData(gal_url);
+
+  let box = document.querySelector(".f_galary");
+  galary_f_append(data, box);
+
+  let container = document.querySelector(".s_galary");
+  galary_s_append(data, container);
+};
+galary();
+
+//   ########## mobiles and tabs #############
+
+let mobile_func = async () => {
+  const mobile_url = `https://newsapi.org/v2/everything?q=tabs&apiKey=${apikeyR}`;
+
+  let data = await getFetchData(mobile_url);
+
+  let container = document.getElementById("mobile");
+  append(data, container);
+};
+mobile_func();
+
+// ############ gadgets ##########
+let gadgets_func = async () => {
+  const gadgets_url = `https://newsapi.org/v2/everything?q=gadgets&apiKey=${apikeyR}`;
+
+  let data = await getFetchData(gadgets_url);
+
+  let box = document.getElementById("u_gadgets");
+  typeAppend(data, box);
+  let container = document.getElementById("l_gadgets");
+  lowAppend(data, container);
+};
+gadgets_func();
+
+// ############## in other news #############
+
+let tech_func = async () => {
+  const tech_url = `https://newsapi.org/v2/top-headlines?country=ca&category=technology&apiKey=${apikeyR}`;
+
+  let data = await getFetchData(tech_url);
+
+  let box = document.getElementById("u_tech");
+  typeAppend(data, box);
+  let container = document.getElementById("l_tech");
+  lowAppend(data, container);
+};
+tech_func();
+  </script>
+</html>
+

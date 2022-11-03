@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports</title>
+    <link rel="stylesheet" href="./styles/styles.css">
+    <link rel="stylesheet" href="./styles/world.css">
+    <link rel="stylesheet" href="./style/footer.css">
+    <link rel="stylesheet" href="./style/header.css">
+</head>
+<body>
+    <div id="asheader">
+    </div>
+
+<div id="navbar">
+</div>
+    <!-- top Part -->
+        <div id="outerDiv">
+            <div id="leftDiv">
+                <h2>SPORTS</h2>
+            </div>
+            <div id="middleDiv"></div>
+            <div id="rightDiv">
+                <div id="topEmptyDiv"></div>
+                <div id="bottomDiv">
+                    <h2>MOST POPULAR</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Part -->
+<!-- galary  -->
+<div id="galary">
+    <div class="f_galary">
+         <h2>GALLERY</h2>
+    </div>
+    <div class="s_galary">
+         <h2>MORE GALLERIES</h2>
+    </div>
+</div>
+<!-- politics  -->
+<div id="p_cricket">
+    <h2>CRICKET</h2>
+    <div id="cricket">
+    
+    </div>
+</div>
+<!-- FOOTBALL  -->
+<div id="p_football">
+    <h2>FOOTBALL</h2>
+    <div id="u_football">
+    
+    </div>
+    <div id="l_football">
+    
+    </div>
+  </div>
+  <!-- Tennis  -->
+  <div id="p_tennis">
+    <h2>TENNIS</h2>
+    <div id="tennis">
+    
+    </div>
+</div>
+
+<!-- BADMINTON  -->
+<div id="p_badminton">
+    <h2>BADMINTON</h2>
+    <div id="u_badminton">
+    
+    </div>
+    <div id="l_badminton">
+    
+    </div>
+  </div> 
+  <!-- IN OTHER NEWS -->
+  <div id="p_sports">
+    <h2>IN OTHER NEWS</h2>
+    <div id="u_sports">
+    
+    </div>
+    <div id="l_sports">
+    
+    </div>
+  </div>  
+
+ 
+  <footer id="as_footer"></footer>
+</body>
+
+
+
+
+  
+<script type="module">
+
+
+        import {fetchData} from "./components/index.js"
+        import {appendData,showDataM,showDataR} from "./components/display.js"
+
+        // const apikeyR=`d5517085875846b9ba2c2cbb522dc5d4`
+        // const apikeyR=`a4b263da6c6c4f1ab7f29e452bc9d108`
+        // const apikeyR=`bf6c4661eaeb4853a23a5aa81dd3b8cf`
+        const apikeyR=`76abf9a091394214a253dfa00f1f6e2c`
+        // const apikeyR="95d1fbec7675485aba5f17e941467b38"
+        //const apikeyR="25b04ade42f64810b66bdd7ebf4be413"
+         // const apikeyR ="6aa74a37541a4b0c88dbe661ec2f72c4"
+
+        let query="cricket and chess"
+        let query2="sports"
+        let query3="football"
+
+        let url2=`https://newsapi.org/v2/everything?q=${query}&apikey=${apikeyR}`
+        let url3=`https://newsapi.org/v2/everything?q=${query3}&apikey=${apikeyR}`
+        let url4=`https://newsapi.org/v2/everything?q=${query2}&apikey=${apikeyR}`
+
+        let data=await fetchData(url2)
+        let dataM=await fetchData(url3)
+        let dataR=await fetchData(url4)
+    ///left part
+   let display=document.getElementById("leftDiv")
+   appendData(data.articles,display)
+    
+    ////middle part
+    
+        let container=document.getElementById("middleDiv")
+        showDataM(dataM.articles,container)
+
+    ////right part
+        
+    let containerR=document.getElementById("bottomDiv")
+    showDataR(dataR.articles,containerR)
+
+        //console.log(data)
+
+     ///Bottom JS  
+
+     
+
+import {getFetchData,append,typeAppend,lowAppend,galary_s_append,galary_f_append} from "./components/fetch.js"
+
+let galary = async() => {
+    const gal_url=`https://newsapi.org/v2/top-headlines?country=in&category=sports&apiKey=${apikeyR}`
+
+
+     let data=await getFetchData(gal_url);
+
+     let box=document.querySelector(".f_galary")
+     galary_f_append(data,box)
+
+     let container=document.querySelector(".s_galary")
+     galary_s_append(data,container)
+     
+}
+  galary()
+
+//   ########### cricket ########### 
+let cricket_func =async () =>{
+    const cricket_url = `https://newsapi.org/v2/everything?q=indian%20cricket&apiKey=${apikeyR}`
+
+     let data =await getFetchData(cricket_url)
+
+    let container=document.getElementById("cricket")
+    append(data,container)
+}
+cricket_func()
+
+
+// ############ football ############## 
+let football_func = async () =>{
+    const football_url=`https://newsapi.org/v2/everything?q=indian%20football&apiKey=${apikeyR}`
+
+    let data = await getFetchData(football_url)
+
+    let box = document.getElementById("u_football");
+    typeAppend(data,box)
+    let container = document.getElementById("l_football");
+    lowAppend(data,container)
+}
+football_func()
+
+// ########## tennis ################# 
+let tennis_func =async () =>{
+    const tennis_url = `https://newsapi.org/v2/everything?q=indian%20tennis&apiKey=${apikeyR}`
+
+     let data =await getFetchData(tennis_url)
+
+    let container=document.getElementById("tennis")
+    append(data,container)
+}
+tennis_func()
+
+// ########### badminton ########### 
+let badminton_func = async () =>{
+    const badminton_url=`https://newsapi.org/v2/everything?q=indian%20badminton&apiKey=${apikeyR}`
+
+    let data = await getFetchData(badminton_url)
+
+    let box = document.getElementById("u_badminton");
+    typeAppend(data,box)
+    let container = document.getElementById("l_badminton");
+    lowAppend(data,container)
+}
+badminton_func()
+
+// ############# IN OTHER NEWS ########### 
+let sports_func = async () =>{
+    const sports_url=`https://newsapi.org/v2/top-headlines?country=us&category=sports&apiKey=${apikeyR}`
+
+    let data = await getFetchData(sports_url)
+
+    let box = document.getElementById("u_sports");
+    typeAppend(data,box)
+    let container = document.getElementById("l_sports");
+    lowAppend(data,container)
+}
+sports_func()
+ 
+</script>
+</html>
+
+    <script src="./scripts/icon.js"></script>
+<script src="./scripts/sidepanel.js"></script>
+<script type="module">
+        import { navbar } from "./comp/navbar.js";
+  import { footer } from "./comp/footer.js";
+  import { header } from "./comp/header.js";
+  let nav = (document.getElementById("navbar").innerHTML = navbar());
+  let foot = (document.getElementById("as_footer").innerHTML = footer());
+  let head = (document.getElementById("asheader").innerHTML = header());
+</script>
